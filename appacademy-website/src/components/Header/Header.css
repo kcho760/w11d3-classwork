@@ -1,0 +1,15 @@
+.logo {
+    height: 200px;
+}
+
+.survey {
+    display: flex;
+    align-items: center;
+}
+h1 {
+    font-size: 80px;
+}
+h3 {
+    font-size: 40px;
+    font-weight: lighter;
+}
