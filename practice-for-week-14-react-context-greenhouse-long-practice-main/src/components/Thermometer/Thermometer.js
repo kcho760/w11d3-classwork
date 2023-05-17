@@ -4,7 +4,29 @@ import { useClimate } from "../../context/ClimateContext";
 
 function Thermometer() {
 
-  const {temp, setTemp} = useClimate()
+  const {temp, setTemp} = useClimate();
+  let internalScopeTemp = temp;
+  
+  const interval = (val) => {
+    
+    if ( val > internalScopeTemp) {
+      let id = setInterval(() => {
+        setTemp((prevTemp) => {return prevTemp + 1});
+        internalScopeTemp++;
+        if (val === internalScopeTemp) {
+          clearInterval(id);
+        }
+      }, 300);
+    } else {
+      let id = setInterval(() => {
+        setTemp((prevTemp) => {return prevTemp - 1});
+        internalScopeTemp--;
+        if (val === internalScopeTemp) {
+          clearInterval(id);
+        }
+      }, 300);    
+    }
+  }
 
   return (
     <section>
@@ -12,7 +34,7 @@ function Thermometer() {
       <div className="actual-temp">Actual Temperature: {temp}°F</div>
       <ReactSlider
         value={temp}
-        onAfterChange={(val) => {setTemp(val)}}
+        onAfterChange={(val) => {interval(val)}}
         className="thermometer-slider"
         thumbClassName="thermometer-thumb"
         trackClassName="thermometer-track"
